@@ -1,23 +1,35 @@
-from tuning import test
+# alex's version
 
-test()
+from tuning import estimate_from_file
+from tuning import estimate_from_array
 
-from numpy import loadtxt, corrcoef
+b, r2 = estimate_from_file('file1.csv', 'file2.csv')
 
-X = loadtxt('test/resources/X.csv', delimiter=',')
-y = loadtxt('test/resources/y.csv', delimiter=',')
+b, r2 = estimate_from_array(X, y)
+
+# pandas version
+
+from tuning import estimate
+
+b, r2 = estimate('file1.csv', 'file2.csv')
+
+# numpy version
+
+from tuning import estimate
+from pandas import read_csv
+
+X = read_csv('file1.csv')
+y = read_csv('file2.csv')
+
+b, r2 = estimate(X, y)
+
+# from numpy import loadtxt, corrcoef
+
+# X = loadtxt('test/resources/X.csv', delimiter=',')
+# y = loadtxt('test/resources/y.csv', delimiter=',')
 
 #algorithm = LinearNonlinear(penalty='lasso', alpha=0, delay=0)
 
 #model = algorithm.fit(X, y)
 
 #model.predict(X)
-
-import matplotlib.pyplot as plt
-
-fig = plt.figure(figsize=[15,5])
-plt.plot(X,'r')
-plt.plot(y,'k')
-plt.ylabel('df/f')
-plt.xlabel('time (s)');
-plt.show()
